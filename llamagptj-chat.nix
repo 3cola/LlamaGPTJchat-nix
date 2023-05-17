@@ -11,18 +11,18 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  #postPatch = ''
-  #  substituteInPlace CMakeLists.txt \
-  #    --replace 'set(CMAKE_INSTALL_PREFIX ''${CMAKE_BINARY_DIR}/install)' ""
-  #'';
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static")' ""
+  '';
+
+  dontInstall = true;
 
   nativeBuildInputs = [
     cmake
   ];
 
-  cmakeFlags = [];
-
-  setSourceRoot = "sourceRoot=`pwd`/source/llamagptj-chat";
+  #cmakeFlags = [];
 
   meta = with lib; {
     description = "llama-gptj chat";
