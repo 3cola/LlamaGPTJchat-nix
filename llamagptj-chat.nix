@@ -22,7 +22,13 @@ stdenv.mkDerivation {
     cmake
   ];
 
-  #cmakeFlags = [];
+  preBuild = ''
+    mkdir build
+    cd build
+    cmake -DAVX512=ON ..
+  '';
+
+  cmakeFlags = [ "-DAVX512=ON" "--build" "." "--parallel" ];
 
   meta = with lib; {
     description = "llama-gptj chat";
