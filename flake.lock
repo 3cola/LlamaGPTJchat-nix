@@ -1,0 +1,46 @@
+{
+  "nodes": {
+    "llamagptjchat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684331891,
+        "narHash": "sha256-HlgeKBdp+GKUNX8U26agY8N9ap4sOSJL9OReonmB1Aw=",
+        "ref": "refs/heads/main",
+        "rev": "69143310735240e9681c4cb5256bc5777b426cb7",
+        "revCount": 153,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/kuvaus/LlamaGPTJ-chat"
+      },
+      "original": {
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/kuvaus/LlamaGPTJ-chat"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1684215771,
+        "narHash": "sha256-fsum28z+g18yreNa1Y7MPo9dtps5h1VkHfZbYQ+YPbk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "963006aab35e3e8ebbf6052b6bf4ea712fdd3c28",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "llamagptjchat": "llamagptjchat",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
