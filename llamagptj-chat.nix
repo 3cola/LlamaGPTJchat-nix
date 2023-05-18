@@ -3,6 +3,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, glibc
 }:
 
 stdenv.mkDerivation {
@@ -11,24 +12,28 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static")' ""
-  '';
-
-  dontInstall = true;
+  #postPatch = ''
+  #  substituteInPlace CMakeLists.txt \
+  #    --replace 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static")' \
+  #      ' '
+  #'';
 
   nativeBuildInputs = [
     cmake
   ];
 
-  preBuild = ''
-    mkdir build
-    cd build
-    cmake -DAVX512=ON ..
+  buildInputs = [
+    glibc.static
+  ];
+
+  dontDisableStatic = true;
+
+  installPhase = ''
+    mkdir -p $out/bin
+    cp `pwd`/bin/chat $out/bin
   '';
 
-  cmakeFlags = [ "-DAVX512=ON" "--build" "." "--parallel" ];
+  cmakeFlags = [ "-DAVX512=ON" ];
 
   meta = with lib; {
     description = "llama-gptj chat";
