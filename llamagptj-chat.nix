@@ -3,7 +3,6 @@
 , stdenv
 , fetchFromGitHub
 , cmake
-, glibc
 }:
 
 stdenv.mkDerivation {
@@ -12,21 +11,15 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  #postPatch = ''
-  #  substituteInPlace CMakeLists.txt \
-  #    --replace 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static")' \
-  #      ' '
-  #'';
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++ -static")' \
+        ' '
+  '';
 
   nativeBuildInputs = [
     cmake
   ];
-
-  buildInputs = [
-    glibc.static
-  ];
-
-  dontDisableStatic = true;
 
   installPhase = ''
     mkdir -p $out/bin
